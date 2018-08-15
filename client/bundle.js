@@ -37700,8 +37700,7 @@ var App = function (_React$Component) {
                             );
                         })
                     )
-                ),
-                _react2.default.createElement(_MyMapComponent2.default, { isMarkerShown: true })
+                )
             );
         }
     }]);
