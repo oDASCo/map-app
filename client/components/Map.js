@@ -1,33 +1,63 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { compose, withProps } from "recompose";
-import {
+const fetch = require("isomorphic-fetch");
+const { compose, withProps, withHandlers } = require("recompose");
+const {
     withScriptjs,
     withGoogleMap,
     GoogleMap,
-    Marker
-} from "react-google-maps";
+    Marker,
+} = require("react-google-maps");
+const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
-const MyMapComponent = compose(
+const MapWithAMarker = compose(
     withProps({
-        /**
-         * Note: create and replace your own key in the Google console.
-         * https://console.developers.google.com/apis/dashboard
-         * The key "AIzaSyBkNaAGLEVq0YLQMi-PYEMabFeREadYe1Q" can be ONLY used in this sandbox (no forked).
-         */
-        googleMapURL:
-            "https://maps.googleapis.com/maps/api/js?key=AIzaSyCdRumhbNFLG1ETUBWEHNwWt8FSmNwB9fE&v=3.exp&libraries=geometry,drawing,places",
+        googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyCdRumhbNFLG1ETUBWEHNwWt8FSmNwB9fE&v=3.exp&libraries=geometry,drawing,places",
         loadingElement: <div style={{ height: `100%` }} />,
         containerElement: <div style={{ height: `400px` }} />,
-        mapElement: <div style={{ height: `100%` }} />
+        mapElement: <div style={{ height: `100%` }} />,
     }),
     withScriptjs,
     withGoogleMap
-)(props => (
-    <GoogleMap defaultZoom={8} defaultCenter={{ lat: -34.397, lng: 150.644 }}>
-        {props.isMarkerShown && (
-            <Marker position={{ lat: -34.397, lng: 150.644 }} />
-        )}
+)(props =>
+    <GoogleMap
+        defaultZoom={3}
+        defaultCenter={{ lat: 53.9, lng: 27.56667 }}
+    >
+
+            {props.markers.map(marker => (
+                <Marker
+                    key={marker.photo_id}
+                    position={{ lat: marker.latitude, lng: marker.longitude }}
+                />
+            ))}
+
     </GoogleMap>
-));
-export default MyMapComponent;
+);
+
+class DemoApp extends React.PureComponent {
+    componentWillMount() {
+        this.setState({ markers: [] })
+    }
+
+    componentDidMount() {
+        const url = [
+            // Length issue
+            `https://gist.githubusercontent.com`,
+            `/oDASCo/8ff64187569af0680464bea3285d8cd1/raw/ec5c2a8f6ae65281a0866b47a678c83ab2328de9/data.json`
+        ].join("")
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ markers: data.photos });
+            });
+    }
+
+    render() {
+        return (
+            <MapWithAMarker markers={this.state.markers} />
+        )
+    }
+}
+export default DemoApp;
