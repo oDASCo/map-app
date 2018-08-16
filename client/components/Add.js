@@ -100,7 +100,7 @@ class Add extends React.Component {
                         contentLabel="Add Expense"
                         className="Modal">
                         <Link to={{pathname: '/', search: '' }} style={{ textDecoration: 'none' }}>
-                            <Button bsStyle="danger" bsSize="mini" onClick={this.closeModal}><span className="closebtn glyphicon glyphicon-remove"></span></Button>
+                            <Button bsStyle="danger" bsSize="small" onClick={this.closeModal}><span className="closebtn glyphicon glyphicon-remove"></span></Button>
                         </Link><br/>
                         <fieldset>
                             <label for="description">Description:</label><input type="text" id="description" name="description" value={this.state.description} onChange={this.handleTextChange}></input>

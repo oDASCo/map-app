@@ -86,3 +86,22 @@ fieldset{
 .closebtn{
   float:right;
 }
+
+.infoBlock{
+  background-color: #11264a;
+  color: white;
+  padding: 30px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.placeName{
+  font-weight: bold;
+}
+.hideBtn{
+  border: none;
+  background-color: #a5b9dc;
+  padding: 10px 20px;
+  color: #11264a;
+  font-weight: bold;
+}
