@@ -10,5 +10,6 @@ app.use(express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: false}));
 mongoose.connect('mongodb://root:root111@ds123012.mlab.com:23012/test-react');
+
 app.use('/', router);
 module.exports=app;

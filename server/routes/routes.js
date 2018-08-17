@@ -2,20 +2,21 @@ var express = require('express');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var Expense = require('../../models/Expense');
+var Places = require('../../models/Places');
 router.get('/', function(req, res){
     res.render('index')
 });
 router.route('/insert')
     .post(function(req,res) {
-        var expense = new Expense();
-        expense.description = req.body.desc;
-        expense.amount = req.body.amount;
-        expense.month = req.body.month;
-        expense.year = req.body.year;
-        expense.save(function(err) {
+        var places = new Places();
+        places.place_id = req.body.id;
+        places.place_name = req.body.name;
+        places.lat = req.body.lat;
+        places.lng = req.body.lng;
+        places.save(function(err) {
             if (err)
                 res.send(err);
-            res.send('Expense successfully added!');
+            res.send('Place successfully added!');
         });
     })
 router.route('/update')
@@ -41,6 +42,7 @@ router.get('/delete', function(req, res){
         res.send('Expense successfully deleted!');
     })
 });
+
 
 
 router.get('/getAll',function(req, res) {

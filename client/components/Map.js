@@ -1,5 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+import customMarker from '../../src/images/map_marker.png';
 const fetch = require("isomorphic-fetch");
 const { compose, withProps, withHandlers } = require("recompose");
 const {
@@ -29,6 +31,9 @@ const MapWithAMarker = compose(
                 <Marker
                     key={marker.photo_id}
                     position={{ lat: marker.latitude, lng: marker.longitude }}
+                    // icon={{
+                    //     url: customMarker
+                    // }}
                 />
             ))}
 

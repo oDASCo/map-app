@@ -6,6 +6,7 @@ import Update from './Update';
 import Delete from './Delete';
 import DemoApp from './Map';
 import InfoBlock from './InfoBlock';
+import AddPlace from './AddPlace';
 export default class App extends React.Component {
 
     render() {
@@ -17,6 +18,7 @@ export default class App extends React.Component {
                 <div style={{width: '100%', height: '400px'}}>
                     <DemoApp />
                 </div>
+                <AddPlace />
             </div>
         );
     }
