@@ -4,7 +4,7 @@ import axios from 'axios';
 import Add from './Add';
 import Update from './Update';
 import Delete from './Delete';
-import DemoApp from './Map';
+import MyMap from './Map';
 import InfoBlock from './InfoBlock';
 import AddPlace from './AddPlace';
 export default class App extends React.Component {
@@ -16,7 +16,7 @@ export default class App extends React.Component {
                     <InfoBlock/>
                 </div>
                 <div style={{width: '100%', height: '400px'}}>
-                    <DemoApp />
+                    <MyMap />
                 </div>
                 <AddPlace />
             </div>

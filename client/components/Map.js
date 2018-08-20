@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import axios from "axios";
 
-import customMarker from '../../src/images/map_marker.png';
+// import customMarker from '../../src/images/map_marker.png';
 const fetch = require("isomorphic-fetch");
 const { compose, withProps, withHandlers } = require("recompose");
 const {
@@ -26,43 +27,39 @@ const MapWithAMarker = compose(
         defaultZoom={3}
         defaultCenter={{ lat: 53.9, lng: 27.56667 }}
     >
-
             {props.markers.map(marker => (
                 <Marker
-                    key={marker.photo_id}
-                    position={{ lat: marker.latitude, lng: marker.longitude }}
-                    // icon={{
-                    //     url: customMarker
-                    // }}
+                    key={marker.place_id}
+                    position={{ lat: marker.lat, lng: marker.lng }}
                 />
             ))}
 
     </GoogleMap>
 );
 
-class DemoApp extends React.PureComponent {
-    componentWillMount() {
-        this.setState({ markers: [] })
+class MyMap extends React.PureComponent {
+
+    constructor() {
+        super();
+        this.state = {markers: []};
+        this.getData = this.getData.bind(this);
     }
-
-    componentDidMount() {
-        const url = [
-            // Length issue
-            `https://gist.githubusercontent.com`,
-            `/oDASCo/8ff64187569af0680464bea3285d8cd1/raw/ec5c2a8f6ae65281a0866b47a678c83ab2328de9/data.json`
-        ].join("")
-
-        fetch(url)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({ markers: data.photos });
+    componentWillMount() {
+        this.getData(this);
+    }
+    getData(ev){
+        axios.get('/getAll')
+            .then(function(response) {
+                ev.setState({markers: response.data});
             });
     }
-
     render() {
         return (
-            <MapWithAMarker markers={this.state.markers} />
+            <div>
+                <MapWithAMarker markers={this.state.markers} />
+            </div>
         )
     }
 }
-export default DemoApp;
+
+export default MyMap;

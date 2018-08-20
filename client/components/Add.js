@@ -105,7 +105,8 @@ class Add extends React.Component {
                         <fieldset>
                             <label for="description">Description:</label><input type="text" id="description" name="description" value={this.state.description} onChange={this.handleTextChange}></input>
                             <label for="amount">Amount:</label><input type="number" id="amount" name="amount" value={this.state.amount} onChange={this.handleTextChange}></input>
-                            <label for="month">Month:</label><select id="month" name="month" value={this.state.month} onChange={this.handleSelectChange}>
+                            <label for="month">Month:</label>
+                            <select id="month" name="month" value={this.state.month} onChange={this.handleSelectChange}>
                             <option value="Jan" id="Jan">January</option>
                             <option value="Feb" id="Feb">Febrary</option>
                             <option value="Mar" id="Mar">March</option>
@@ -118,7 +119,7 @@ class Add extends React.Component {
                             <option value="Oct" id="Oct">October</option>
                             <option value="Nov" id="Nov">November</option>
                             <option value="Dec" id="Dec">December</option>
-                        </select>
+                            </select>
                             <label for="year">Year:</label><select id="year" name="year" value={this.state.year} onChange={this.handleSelectChange}>
                             <option value="2016" id="16">2016</option>
                             <option value="2017" id="17">2017</option>
