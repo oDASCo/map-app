@@ -52147,7 +52147,8 @@ var fetch = __webpack_require__(463);
 var _require = __webpack_require__(130),
     compose = _require.compose,
     withProps = _require.withProps,
-    withHandlers = _require.withHandlers;
+    withHandlers = _require.withHandlers,
+    withStateHandlers = _require.withStateHandlers;
 
 var _require2 = __webpack_require__(469),
     withScriptjs = _require2.withScriptjs,
@@ -52163,6 +52164,12 @@ var MapWithAMarker = compose(withProps({
     loadingElement: _react2.default.createElement("div", { style: { height: "100%" } }),
     containerElement: _react2.default.createElement("div", { style: { height: "400px" } }),
     mapElement: _react2.default.createElement("div", { style: { height: "100%" } })
+}), withStateHandlers(function () {
+    return {
+        onMarkerClick: function onMarkerClick() {
+            console.log(this);
+        }
+    };
 }), withScriptjs, withGoogleMap)(function (props) {
     return _react2.default.createElement(
         GoogleMap,
@@ -52173,11 +52180,47 @@ var MapWithAMarker = compose(withProps({
         props.markers.map(function (marker) {
             return _react2.default.createElement(Marker, {
                 key: marker.place_id,
-                position: { lat: marker.lat, lng: marker.lng }
+                position: { lat: marker.lat, lng: marker.lng },
+                onClick: props.onMarkerClick.bind(undefined, marker)
+
             });
         })
     );
 });
+
+var Info = function (_React$Component) {
+    _inherits(Info, _React$Component);
+
+    function Info() {
+        _classCallCheck(this, Info);
+
+        return _possibleConstructorReturn(this, (Info.__proto__ || Object.getPrototypeOf(Info)).apply(this, arguments));
+    }
+
+    _createClass(Info, [{
+        key: "render",
+        value: function render() {
+            return _react2.default.createElement(
+                "div",
+                null,
+                _react2.default.createElement(
+                    "div",
+                    null,
+                    "111d"
+                ),
+                this.props.markers.map(function (marker) {
+                    return _react2.default.createElement(
+                        "p",
+                        { key: marker.place_id },
+                        marker.lat
+                    );
+                })
+            );
+        }
+    }]);
+
+    return Info;
+}(_react2.default.Component);
 
 var MyMap = function (_React$PureComponent) {
     _inherits(MyMap, _React$PureComponent);
@@ -52185,11 +52228,11 @@ var MyMap = function (_React$PureComponent) {
     function MyMap() {
         _classCallCheck(this, MyMap);
 
-        var _this = _possibleConstructorReturn(this, (MyMap.__proto__ || Object.getPrototypeOf(MyMap)).call(this));
+        var _this2 = _possibleConstructorReturn(this, (MyMap.__proto__ || Object.getPrototypeOf(MyMap)).call(this));
 
-        _this.state = { markers: [] };
-        _this.getData = _this.getData.bind(_this);
-        return _this;
+        _this2.state = { markers: [] };
+        _this2.getData = _this2.getData.bind(_this2);
+        return _this2;
     }
 
     _createClass(MyMap, [{
@@ -65359,7 +65402,7 @@ var InfoBlock = function (_React$Component) {
                         this.state.data.map(function (exp) {
                             return _react2.default.createElement(
                                 'tr',
-                                null,
+                                { key: exp.place_id },
                                 _react2.default.createElement('td', { className: 'counterCell' }),
                                 _react2.default.createElement(
                                     'td',

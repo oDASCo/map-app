@@ -4,7 +4,7 @@ import axios from "axios";
 
 // import customMarker from '../../src/images/map_marker.png';
 const fetch = require("isomorphic-fetch");
-const { compose, withProps, withHandlers } = require("recompose");
+const { compose, withProps, withHandlers, withStateHandlers } = require("recompose");
 const {
     withScriptjs,
     withGoogleMap,
@@ -20,6 +20,11 @@ const MapWithAMarker = compose(
         containerElement: <div style={{ height: `400px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
     }),
+    withStateHandlers(() => ({
+        onMarkerClick: function () {
+            console.log(this);
+        }
+    })),
     withScriptjs,
     withGoogleMap
 )(props =>
@@ -27,15 +32,33 @@ const MapWithAMarker = compose(
         defaultZoom={3}
         defaultCenter={{ lat: 53.9, lng: 27.56667 }}
     >
+
             {props.markers.map(marker => (
                 <Marker
                     key={marker.place_id}
                     position={{ lat: marker.lat, lng: marker.lng }}
+                    onClick={props.onMarkerClick.bind(this, marker)}
+
                 />
+
             ))}
 
     </GoogleMap>
 );
+
+class Info extends React.Component{
+
+    render() {
+        return (
+            <div>
+                {this.props.markers.map(marker => (
+                   <p key={marker.place_id}>{marker.lat}</p>
+                ))}
+            </div>
+        )
+    }
+
+}
 
 class MyMap extends React.PureComponent {
 
@@ -56,6 +79,7 @@ class MyMap extends React.PureComponent {
     render() {
         return (
             <div>
+                {/*<Info markers={this.state.markers} />*/}
                 <MapWithAMarker markers={this.state.markers} />
             </div>
         )

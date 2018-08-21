@@ -32,7 +32,7 @@ class InfoBlock extends React.Component {
                <tbody>
                {
                    this.state.data.map(function(exp){
-                       return  <tr><td className='counterCell'></td><td className='button-col'>{exp.place_id}</td><td className='button-col'>{exp.place_name}</td><td className='button-col'>{exp.lat}</td><td className='button-col'>{exp.lng}</td><td className='button-col'></td></tr>
+                       return  <tr key={exp.place_id}><td className='counterCell'></td><td className='button-col'>{exp.place_id}</td><td className='button-col'>{exp.place_name}</td><td className='button-col'>{exp.lat}</td><td className='button-col'>{exp.lng}</td><td className='button-col'></td></tr>
                    })
                }
                </tbody>
