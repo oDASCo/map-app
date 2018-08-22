@@ -2,7 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
+
 // import customMarker from '../../src/images/map_marker.png';
+const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
 const fetch = require("isomorphic-fetch");
 const { compose, withProps, withHandlers, withStateHandlers } = require("recompose");
 const {
@@ -10,6 +12,7 @@ const {
     withGoogleMap,
     GoogleMap,
     Marker,
+    InfoWindow,
 } = require("react-google-maps");
 const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
@@ -19,12 +22,20 @@ const MapWithAMarker = compose(
         loadingElement: <div style={{ height: `100%` }} />,
         containerElement: <div style={{ height: `400px` }} />,
         mapElement: <div style={{ height: `100%` }} />,
+        center: { lat: 25.03, lng: 121.6 },
     }),
     withStateHandlers(() => ({
-        onMarkerClick: function () {
-            console.log(this);
-        }
-    })),
+        isOpen: false,
+        showInfo: '0'
+    }), {
+        onToggleOpen: ({ isOpen }) => () => ({
+            isOpen: !isOpen,
+        }),
+        showInfo: ({ showInfo, isOpen }) => (a) => ({
+            isOpen: !isOpen,
+            showInfoIndex: a
+        })
+    }),
     withScriptjs,
     withGoogleMap
 )(props =>
@@ -33,17 +44,26 @@ const MapWithAMarker = compose(
         defaultCenter={{ lat: 53.9, lng: 27.56667 }}
     >
 
-            {props.markers.map(marker => (
-                <Marker
-                    key={marker.place_id}
-                    position={{ lat: marker.lat, lng: marker.lng }}
-                    onClick={props.onMarkerClick.bind(this, marker)}
+        {props.markers.map((marker) =>
+            <Marker
+                key={marker.place_id}
+                position={{ lat: marker.lat, lng: marker.lng }}
+                onClick={()=>{ props.showInfo(marker.place_id)} }
+            >
+                { (props.showInfoIndex == marker.place_id ) &&
+                <InfoWindow  onCloseClick={props.onToggleOpen}>
+                    <div>
+                        <div>{marker.place_name}</div>
+                        <div>{marker.lat}</div>
+                        <div>{marker.lng}</div>
 
-                />
+                    </div>
+                </InfoWindow>}
+            </Marker>
+        )}
 
-            ))}
 
-    </GoogleMap>
+            </GoogleMap>
 );
 
 class Info extends React.Component{
