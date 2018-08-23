@@ -1,3 +1,4 @@
+import Delete from './Delete';
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
@@ -48,33 +49,44 @@ const MapWithAMarker = compose(
             <Marker
                 key={marker.place_id}
                 position={{ lat: marker.lat, lng: marker.lng }}
-                onClick={()=>{ props.showInfo(marker.place_id)} }
+                onClick={()=>{ props.showInfo(marker.place_id); props.setMarkerInfo(marker);} }
+                onMouseenter={()=>{ props.showInfo(marker.place_id); props.setMarkerInfo(marker);} }
             >
-                { (props.showInfoIndex == marker.place_id ) &&
-                <InfoWindow  onCloseClick={props.onToggleOpen}>
-                    <div>
-                        <div>{marker.place_name}</div>
-                        <div>{marker.lat}</div>
-                        <div>{marker.lng}</div>
 
-                    </div>
-                </InfoWindow>}
             </Marker>
         )}
 
 
-            </GoogleMap>
+    </GoogleMap>
 );
 
 class Info extends React.Component{
-
+    constructor(props) {
+        super(props);
+        this.hideMarker = this.hideMarker.bind(this);
+    }
+    hideMarker() {
+        console.log(111);
+        console.log(this.props.markerInfo);
+    }
     render() {
         return (
             <div>
-                {this.props.markers.map(marker => (
-                   <p key={marker.place_id}>{marker.lat}</p>
-                ))}
+                <div className="infoBlock">
+                <div className="infoBlockText">
+                    <p className="placeName">Place: {this.props.markerInfo.place_name}</p>
+                    <p>lat: {this.props.markerInfo.lat}    lng: {this.props.markerInfo.lng}</p>
+                </div>
+                <div className="infoBlockBtn">
+                     {/*<button className="hideBtn" onClick={this.hideMarker}>Hide this place</button>*/}
+                    {console.log(this.props.markerInfo.lng)}
+                    <Delete id={this.props.markerInfo.place_id} place={this.props.markerInfo} />
+
+
+                </div>
+                </div>
             </div>
+
         )
     }
 
@@ -84,8 +96,9 @@ class MyMap extends React.PureComponent {
 
     constructor() {
         super();
-        this.state = {markers: []};
+        this.state = {markers: [], markerInfo: {}};
         this.getData = this.getData.bind(this);
+        this.setMarkerInfo = this.setMarkerInfo.bind(this);
     }
     componentWillMount() {
         this.getData(this);
@@ -96,11 +109,16 @@ class MyMap extends React.PureComponent {
                 ev.setState({markers: response.data});
             });
     }
+
+    setMarkerInfo(info){
+        this.setState({markerInfo: info});
+    }
+
     render() {
         return (
             <div>
-                {/*<Info markers={this.state.markers} />*/}
-                <MapWithAMarker markers={this.state.markers} />
+                <Info markerInfo={this.state.markerInfo} />
+                <MapWithAMarker markers={this.state.markers} setMarkerInfo={this.setMarkerInfo} />
             </div>
         )
     }

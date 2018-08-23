@@ -34,14 +34,17 @@ router.route('/update')
             res.send('Expense successfully updated!');
         });
     });
+
+
 router.get('/delete', function(req, res){
-    var id = req.query.id;
-    Expense.find({_id: id}).remove().exec(function(err, expense) {
+    var id = req.query.place_id;
+    Places.find({place_id: id}).remove().exec(function(err, place) {
         if(err)
             res.send(err)
-        res.send('Expense successfully deleted!');
+        res.send('Place successfully deleted!');
     })
 });
+
 
 router.get('/getAll',function(req, res) {
 

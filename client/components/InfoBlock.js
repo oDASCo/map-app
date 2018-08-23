@@ -28,15 +28,6 @@ class InfoBlock extends React.Component {
            <div className="infoBlockBtn">
                <button className="hideBtn">Hide this place</button>
            </div>
-               {/*<table>*/}
-               {/*<tbody>*/}
-               {/*{*/}
-                   {/*this.state.data.map(function(exp){*/}
-                       {/*return  <tr key={exp.place_id}><td className='counterCell'></td><td className='button-col'>{exp.place_id}</td><td className='button-col'>{exp.place_name}</td><td className='button-col'>{exp.lat}</td><td className='button-col'>{exp.lng}</td><td className='button-col'></td></tr>*/}
-                   {/*})*/}
-               {/*}*/}
-               {/*</tbody>*/}
-               {/*</table>*/}
            </div>
         )
     }
