@@ -13,7 +13,6 @@ class Delete extends React.Component {
     componentDidMount() {
         console.log(this)
         this.setState({
-
             id: this.props.place.place_id
         })
     }
@@ -21,16 +20,16 @@ class Delete extends React.Component {
         this.delete(this);
     }
     delete(e){
-        axios.get('/delete?id='+e.state.id)
+        axios.get('/delete')
             .then(function(response) {
 
             });
     }
     render(){
         return (
-            <Button bsStyle="danger" bsSize="small" onClick={this.onClick}>
+            <Button className="hideBtn" onClick={this.onClick}>
                 <Link to={{pathname: '/', search: '' }} style={{ textDecoration: 'none' }}>
-                    <span className="glyphicon glyphicon-remove"></span>
+                    Hide this place
                 </Link>
             </Button>
         )

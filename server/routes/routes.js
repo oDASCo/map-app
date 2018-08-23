@@ -19,35 +19,18 @@ router.route('/insert')
             res.send('Place successfully added!');
         });
     })
-router.route('/update')
-    .post(function(req, res) {
-        const doc = {
-            description: req.body.description,
-            amount: req.body.amount,
-            month: req.body.month,
-            year: req.body.year
-        };
-        console.log(doc);
-        Expense.update({_id: req.body._id}, doc, function(err, result) {
-            if (err)
-                res.send(err);
-            res.send('Expense successfully updated!');
-        });
-    });
 
-
-router.get('/delete', function(req, res){
-    var id = req.query.place_id;
-    Places.find({place_id: id}).remove().exec(function(err, place) {
-        if(err)
-            res.send(err)
-        res.send('Place successfully deleted!');
-    })
-});
+// router.get('/delete', function(req, res){
+//     var id = req.body.id;
+//     Places.find({id: id}).remove().exec(function(err, place) {
+//         if(err)
+//             res.send(err)
+//         res.send('Place successfully deleted!');
+//     })
+// });
 
 
 router.get('/getAll',function(req, res) {
-
         Places.find(function(err, places) {
             if (err)
                 res.send(err);

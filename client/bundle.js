@@ -14342,7 +14342,6 @@ var Delete = function (_React$Component) {
         value: function componentDidMount() {
             console.log(this);
             this.setState({
-
                 id: this.props.place.place_id
             });
         }
@@ -14354,18 +14353,18 @@ var Delete = function (_React$Component) {
     }, {
         key: 'delete',
         value: function _delete(e) {
-            _axios2.default.get('/delete?id=' + e.state.id).then(function (response) {});
+            _axios2.default.get('/delete').then(function (response) {});
         }
     }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
                 _reactBootstrap.Button,
-                { bsStyle: 'danger', bsSize: 'small', onClick: this.onClick },
+                { className: 'hideBtn', onClick: this.onClick },
                 _react2.default.createElement(
                     _reactRouterDom.Link,
                     { to: { pathname: '/', search: '' }, style: { textDecoration: 'none' } },
-                    _react2.default.createElement('span', { className: 'glyphicon glyphicon-remove' })
+                    'Hide this place'
                 )
             );
         }
@@ -52212,7 +52211,7 @@ var MapWithAMarker = compose(withProps({
                 onClick: function onClick() {
                     props.showInfo(marker.place_id);props.setMarkerInfo(marker);
                 },
-                onMouseenter: function onMouseenter() {
+                onMouseEnter: function onMouseEnter() {
                     props.showInfo(marker.place_id);props.setMarkerInfo(marker);
                 }
             });
@@ -52268,7 +52267,6 @@ var Info = function (_React$Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "infoBlockBtn" },
-                        console.log(this.props.markerInfo.lng),
                         _react2.default.createElement(_Delete2.default, { id: this.props.markerInfo.place_id, place: this.props.markerInfo })
                     )
                 )

@@ -104,4 +104,9 @@ fieldset{
   padding: 10px 20px;
   color: #11264a;
   font-weight: bold;
+  border-radius: 0;
+}
+
+.hideBtn a{
+  color: #11264a;
 }

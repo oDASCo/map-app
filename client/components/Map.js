@@ -50,7 +50,7 @@ const MapWithAMarker = compose(
                 key={marker.place_id}
                 position={{ lat: marker.lat, lng: marker.lng }}
                 onClick={()=>{ props.showInfo(marker.place_id); props.setMarkerInfo(marker);} }
-                onMouseenter={()=>{ props.showInfo(marker.place_id); props.setMarkerInfo(marker);} }
+                onMouseEnter={()=>{ props.showInfo(marker.place_id); props.setMarkerInfo(marker);} }
             >
 
             </Marker>
@@ -79,10 +79,7 @@ class Info extends React.Component{
                 </div>
                 <div className="infoBlockBtn">
                      {/*<button className="hideBtn" onClick={this.hideMarker}>Hide this place</button>*/}
-                    {console.log(this.props.markerInfo.lng)}
                     <Delete id={this.props.markerInfo.place_id} place={this.props.markerInfo} />
-
-
                 </div>
                 </div>
             </div>
