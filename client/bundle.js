@@ -14348,7 +14348,8 @@ var Delete = function (_React$Component) {
     }, {
         key: 'onClick',
         value: function onClick(e) {
-            this.delete(this);
+            console.log(this.props.place);
+            this.delete(this.props.place);
         }
     }, {
         key: 'delete',
@@ -52225,19 +52226,15 @@ var Info = function (_React$Component) {
     function Info(props) {
         _classCallCheck(this, Info);
 
-        var _this = _possibleConstructorReturn(this, (Info.__proto__ || Object.getPrototypeOf(Info)).call(this, props));
-
-        _this.hideMarker = _this.hideMarker.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (Info.__proto__ || Object.getPrototypeOf(Info)).call(this, props));
+        // this.hideMarker = this.hideMarker.bind(this);
     }
+    // hideMarker() {
+    //     console.log(this.props.markerInfo);
+    // }
+
 
     _createClass(Info, [{
-        key: "hideMarker",
-        value: function hideMarker() {
-            console.log(111);
-            console.log(this.props.markerInfo);
-        }
-    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(

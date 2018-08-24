@@ -17,7 +17,8 @@ class Delete extends React.Component {
         })
     }
     onClick(e){
-        this.delete(this);
+        console.log(this.props.place);
+        this.delete(this.props.place);
     }
     delete(e){
         axios.get('/delete')

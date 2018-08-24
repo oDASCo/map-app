@@ -18,16 +18,12 @@ router.route('/insert')
                 res.send(err);
             res.send('Place successfully added!');
         });
-    })
+    });
 
-// router.get('/delete', function(req, res){
-//     var id = req.body.id;
-//     Places.find({id: id}).remove().exec(function(err, place) {
-//         if(err)
-//             res.send(err)
-//         res.send('Place successfully deleted!');
-//     })
-// });
+ router.get('/delete', function(req, res){
+    var id = req.query.id;
+     Places.find({id: id}).remove();
+ });
 
 
 router.get('/getAll',function(req, res) {

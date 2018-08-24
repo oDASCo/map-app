@@ -63,12 +63,11 @@ const MapWithAMarker = compose(
 class Info extends React.Component{
     constructor(props) {
         super(props);
-        this.hideMarker = this.hideMarker.bind(this);
+        // this.hideMarker = this.hideMarker.bind(this);
     }
-    hideMarker() {
-        console.log(111);
-        console.log(this.props.markerInfo);
-    }
+    // hideMarker() {
+    //     console.log(this.props.markerInfo);
+    // }
     render() {
         return (
             <div>
