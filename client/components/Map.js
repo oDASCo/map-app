@@ -2,6 +2,7 @@ import Delete from './Delete';
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
+import AddMarkers from './AddMarkers';
 
 
 // import customMarker from '../../src/images/map_marker.png';
@@ -41,16 +42,15 @@ const MapWithAMarker = compose(
     withGoogleMap
 )(props =>
     <GoogleMap
-        defaultZoom={3}
+        defaultZoom={11}
         defaultCenter={{ lat: 53.9, lng: 27.56667 }}
     >
-
         {props.markers.map((marker) =>
             <Marker
-                key={marker.place_id}
+                key={marker.id}
                 position={{ lat: marker.lat, lng: marker.lng }}
-                onClick={()=>{ props.showInfo(marker.place_id); props.setMarkerInfo(marker);} }
-                onMouseEnter={()=>{ props.showInfo(marker.place_id); props.setMarkerInfo(marker);} }
+                onClick={()=>{ props.showInfo(marker.id); props.setMarkerInfo(marker);} }
+                onMouseEnter={()=>{ props.showInfo(marker.id); props.setMarkerInfo(marker);} }
             >
 
             </Marker>
@@ -70,12 +70,12 @@ class Info extends React.Component{
             <div>
                 <div className="infoBlock">
                 <div className="infoBlockText">
-                    <p className="placeName">Place: {this.props.markerInfo.place_name}</p>
-                    <p>lat: {this.props.markerInfo.lat}    lng: {this.props.markerInfo.lng}</p>
+                    <p className="placeName">Place: {this.props.markerInfo.name}</p>
+                    <p>lat: {this.props.markerInfo.lat}  lng: {this.props.markerInfo.lng} </p>
                 </div>
                 <div className="infoBlockBtn">
 
-                    <Delete id={this.props.markerInfo.place_id} place={this.props.markerInfo} />
+                    <Delete id={this.props.markerInfo.id} place={this.props.markerInfo} />
                 </div>
                 </div>
             </div>
@@ -100,6 +100,7 @@ class MyMap extends React.PureComponent {
         axios.get('/getAll')
             .then(function(response) {
                 ev.setState({markers: response.data});
+
             });
     }
 
@@ -112,6 +113,7 @@ class MyMap extends React.PureComponent {
             <div>
                 <Info markerInfo={this.state.markerInfo} />
                 <MapWithAMarker markers={this.state.markers} setMarkerInfo={this.setMarkerInfo} />
+                <div><AddMarkers/></div>
             </div>
         )
     }

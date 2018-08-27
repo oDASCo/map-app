@@ -11,13 +11,13 @@ class Delete extends React.Component {
         this.delete = this.delete.bind(this);
     }
     componentDidMount() {
-        console.log(this)
+
         this.setState({
-            id: this.props.place.place_id
+            id: this.props.place.id
         })
     }
     onClick(e){
-        this.delete(this.props.place.place_id);
+        this.delete(this.props.place.id);
     }
 
     delete(e){

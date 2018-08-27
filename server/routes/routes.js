@@ -1,7 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var bodyParser = require('body-parser');
-var Expense = require('../../models/Expense');
 var Places = require('../../models/Places');
 router.get('/', function(req, res){
     res.render('index')
@@ -9,8 +7,8 @@ router.get('/', function(req, res){
 router.route('/insert')
     .post(function(req,res) {
         var places = new Places();
-        places.place_id = req.body.id;
-        places.place_name = req.body.name;
+        places.id = req.body.id;
+        places.name = req.body.name;
         places.lat = req.body.lat;
         places.lng = req.body.lng;
         places.save(function(err) {
@@ -22,8 +20,7 @@ router.route('/insert')
 
 router.post('/delete', function(req, res){
     var id = req.body.id;
-    console.log(id);
-    Places.find({place_id: id}).deleteOne().then((err, data) => res.send(data));
+    Places.find({id: id}).deleteOne().then((err, data) => res.send(data));
 });
 
 

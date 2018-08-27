@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var placesSchema = new Schema({
-    place_id: String,
-    place_name: String,
+    id: String,
+    name: String,
     lat: Number,
     lng: Number
 });
