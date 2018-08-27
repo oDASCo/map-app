@@ -14348,13 +14348,15 @@ var Delete = function (_React$Component) {
     }, {
         key: 'onClick',
         value: function onClick(e) {
-            console.log(this.props.place);
-            this.delete(this.props.place);
+            this.delete(this.props.place.place_id);
         }
     }, {
         key: 'delete',
         value: function _delete(e) {
-            _axios2.default.get('/delete').then(function (response) {});
+            console.log(e);
+            _axios2.default.post('/delete', { id: e }).then(function (response) {
+                console.log(response);
+            });
         }
     }, {
         key: 'render',
@@ -52227,12 +52229,7 @@ var Info = function (_React$Component) {
         _classCallCheck(this, Info);
 
         return _possibleConstructorReturn(this, (Info.__proto__ || Object.getPrototypeOf(Info)).call(this, props));
-        // this.hideMarker = this.hideMarker.bind(this);
     }
-    // hideMarker() {
-    //     console.log(this.props.markerInfo);
-    // }
-
 
     _createClass(Info, [{
         key: "render",

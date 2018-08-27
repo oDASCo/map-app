@@ -63,11 +63,8 @@ const MapWithAMarker = compose(
 class Info extends React.Component{
     constructor(props) {
         super(props);
-        // this.hideMarker = this.hideMarker.bind(this);
     }
-    // hideMarker() {
-    //     console.log(this.props.markerInfo);
-    // }
+
     render() {
         return (
             <div>
@@ -77,7 +74,7 @@ class Info extends React.Component{
                     <p>lat: {this.props.markerInfo.lat}    lng: {this.props.markerInfo.lng}</p>
                 </div>
                 <div className="infoBlockBtn">
-                     {/*<button className="hideBtn" onClick={this.hideMarker}>Hide this place</button>*/}
+
                     <Delete id={this.props.markerInfo.place_id} place={this.props.markerInfo} />
                 </div>
                 </div>

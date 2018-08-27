@@ -17,13 +17,13 @@ class Delete extends React.Component {
         })
     }
     onClick(e){
-        console.log(this.props.place);
-        this.delete(this.props.place);
+        this.delete(this.props.place.place_id);
     }
     delete(e){
-        axios.get('/delete')
+        console.log(e);
+        axios.post('/delete', {id : e})
             .then(function(response) {
-
+                console.log(response);
             });
     }
     render(){

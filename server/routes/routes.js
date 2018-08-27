@@ -20,10 +20,11 @@ router.route('/insert')
         });
     });
 
- router.get('/delete', function(req, res){
-    var id = req.query.id;
-     Places.find({id: id}).remove();
- });
+router.post('/delete', function(req, res){
+    var id = req.body.id;
+    console.log(id);
+    Places.find({place_id: id}).deleteOne().then((err, data) => res.send(data));
+});
 
 
 router.get('/getAll',function(req, res) {
