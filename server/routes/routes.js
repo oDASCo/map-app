@@ -1,11 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var Places = require('../../models/Places');
+var PlacesService = require('../PlacesService');
+var service = new PlacesService();
+
 router.get('/', function(req, res){
     res.render('index')
 });
+
+router.get('/city', function(req, res) {
+    service.getMarkers()
+        .then( result => res.send(result));
+});
+
 router.route('/insert')
-    .post(function(req,res) {
+    .post(function(req, res) {
         var places = new Places();
         places.id = req.body.id;
         places.name = req.body.name;

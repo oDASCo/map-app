@@ -9608,14 +9608,12 @@ var Delete = function (_React$Component) {
         _this.state = { id: '' };
         _this.onClick = _this.onClick.bind(_this);
         _this.delete = _this.delete.bind(_this);
-        _this.hideMarker = _this.hideMarker.bind(_this);
         return _this;
     }
 
     _createClass(Delete, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-
             this.setState({
                 id: this.props.place.id
             });
@@ -9623,13 +9621,9 @@ var Delete = function (_React$Component) {
     }, {
         key: 'onClick',
         value: function onClick(e) {
-            this.delete(this.props.place.id);
-            this.hideMarker();
-        }
-    }, {
-        key: 'hideMarker',
-        value: function hideMarker() {
-            console.log(this.props);
+            var id = this.props.place.id;
+            this.delete(id);
+            this.props.onDelete(id);
         }
     }, {
         key: 'delete',
@@ -50318,7 +50312,7 @@ var Info = function (_React$Component) {
                     _react2.default.createElement(
                         "div",
                         { className: "infoBlockBtn" },
-                        _react2.default.createElement(_Delete2.default, { id: this.props.markerInfo.id, place: this.props.markerInfo })
+                        _react2.default.createElement(_Delete2.default, { id: this.props.markerInfo.id, place: this.props.markerInfo, onDelete: this.props.onDelete })
                     )
                 )
             );
@@ -50339,13 +50333,26 @@ var MyMap = function (_React$PureComponent) {
         _this2.state = { markers: [], markerInfo: {} };
         _this2.getData = _this2.getData.bind(_this2);
         _this2.setMarkerInfo = _this2.setMarkerInfo.bind(_this2);
+        _this2.addNewPlaces = _this2.addNewPlaces.bind(_this2);
+        _this2.removeMarker = _this2.removeMarker.bind(_this2);
         return _this2;
     }
 
     _createClass(MyMap, [{
-        key: "componentWillMount",
-        value: function componentWillMount() {
+        key: "componentDidMount",
+        value: function componentDidMount() {
             this.getData(this);
+        }
+    }, {
+        key: "addNewPlaces",
+        value: function addNewPlaces() {
+            var _this3 = this;
+
+            fetch('/city').then(function (res) {
+                return res.json();
+            }).then(function (data) {
+                _this3.setState({ markers: data });
+            });
         }
     }, {
         key: "getData",
@@ -50360,17 +50367,30 @@ var MyMap = function (_React$PureComponent) {
             this.setState({ markerInfo: info });
         }
     }, {
+        key: "removeMarker",
+        value: function removeMarker(id) {
+            var updatedMarkers = this.state.markers.filter(function (m) {
+                return m.id !== id;
+            });
+            console.log(this.state.markers);
+            console.log(updatedMarkers);
+            this.setState({ markers: updatedMarkers });
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
                 "div",
                 null,
-                _react2.default.createElement(Info, { markerInfo: this.state.markerInfo }),
+                _react2.default.createElement(Info, { markerInfo: this.state.markerInfo, onDelete: this.removeMarker }),
                 _react2.default.createElement(MapWithAMarker, { markers: this.state.markers, setMarkerInfo: this.setMarkerInfo }),
                 _react2.default.createElement(
-                    "div",
-                    null,
-                    _react2.default.createElement(_AddMarkers2.default, null)
+                    "button",
+                    {
+                        className: "addMarkersBtn",
+                        onClick: this.addNewPlaces
+                    },
+                    "Add Places"
                 )
             );
         }
@@ -50426,11 +50446,7 @@ var AddMarkers = function (_React$Component) {
     function AddMarkers() {
         _classCallCheck(this, AddMarkers);
 
-        var _this = _possibleConstructorReturn(this, (AddMarkers.__proto__ || Object.getPrototypeOf(AddMarkers)).call(this));
-
-        _this.onClick = _this.onClick.bind(_this);
-        _this.insertNewPlace = _this.insertNewPlace.bind(_this);
-        return _this;
+        return _possibleConstructorReturn(this, (AddMarkers.__proto__ || Object.getPrototypeOf(AddMarkers)).call(this));
     }
 
     _createClass(AddMarkers, [{
@@ -50439,44 +50455,14 @@ var AddMarkers = function (_React$Component) {
             this.setState({ markers: [] });
         }
     }, {
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            var _this2 = this;
-
-            var url = ['https://gist.githubusercontent.com/oDASCo/b37079effa12c8c523b15f9cfa0c185f/raw', '/8809f17a911a00c87d89100f6b54a4d1a98c66ca/goggle_places_minsk'].join("");
-
-            fetch(url).then(function (res) {
-                return res.json();
-            }).then(function (data) {
-                _this2.setState({ markers: data.results });
-            });
-        }
-    }, {
-        key: 'onClick',
-        value: function onClick() {
-
-            this.insertNewPlace(this.state.markers);
-        }
-    }, {
-        key: 'insertNewPlace',
-        value: function insertNewPlace(e) {
-            {
-                e.map(function (marker) {
-                    return _axios2.default.post('/insert', querystring.stringify({
-                        id: marker.id,
-                        name: marker.name,
-                        lat: marker.geometry.location.lat,
-                        lng: marker.geometry.location.lng
-                    }));
-                });
-            }
-        }
-    }, {
         key: 'render',
         value: function render() {
             return _react2.default.createElement(
                 'button',
-                { className: 'addMarkersBtn', onClick: this.onClick },
+                {
+                    className: 'addMarkersBtn',
+                    onClick: this.props.onAdd
+                },
                 'Add Places'
             );
         }

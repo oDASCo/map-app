@@ -9,27 +9,26 @@ class Delete extends React.Component {
         this.state={id:''};
         this.onClick = this.onClick.bind(this);
         this.delete = this.delete.bind(this);
-        this.hideMarker = this.hideMarker.bind(this);
     }
     componentDidMount() {
-
         this.setState({
             id: this.props.place.id
         })
     }
+
     onClick(e){
-        this.delete(this.props.place.id);
-        this.hideMarker();
+        const id = this.props.place.id;
+        this.delete(id);
+        this.props.onDelete(id);
     }
-hideMarker(){
-        console.log(this.props);
-}
+
     delete(e){
         axios.post('/delete', {id : e})
             .then(function(response) {
                 console.log(response);
             });
     }
+
     render(){
         return (
             <Button className="hideBtn" onClick={this.onClick}>

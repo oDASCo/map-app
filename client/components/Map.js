@@ -52,7 +52,6 @@ const MapWithAMarker = compose(
                 onClick={()=>{ props.showInfo(marker.id); props.setMarkerInfo(marker);} }
                 onMouseEnter={()=>{ props.showInfo(marker.id); props.setMarkerInfo(marker);} }
             >
-
             </Marker>
         )}
 
@@ -70,11 +69,10 @@ class Info extends React.Component{
                     <p>lat: {this.props.markerInfo.lat}  lng: {this.props.markerInfo.lng} </p>
                 </div>
                 <div className="infoBlockBtn">
-                    <Delete id={this.props.markerInfo.id} place={this.props.markerInfo}  />
+                    <Delete id={this.props.markerInfo.id} place={this.props.markerInfo} onDelete={this.props.onDelete}/>
                 </div>
                 </div>
             </div>
-
         )
     }
 
@@ -87,28 +85,49 @@ class MyMap extends React.PureComponent {
         this.state = {markers: [], markerInfo: {}};
         this.getData = this.getData.bind(this);
         this.setMarkerInfo = this.setMarkerInfo.bind(this);
+        this.addNewPlaces = this.addNewPlaces.bind(this);
+        this.removeMarker = this.removeMarker.bind(this);
     }
-    componentWillMount() {
+
+    componentDidMount() {
         this.getData(this);
     }
+
+    addNewPlaces() {
+        fetch('/city')
+            .then(res => res.json())
+            .then(data => {
+                this.setState({ markers: data });
+            });
+    }
+
     getData(ev){
         axios.get('/getAll')
             .then(function(response) {
                 ev.setState({markers: response.data});
-
             });
     }
 
     setMarkerInfo(info){
-        this.setState({markerInfo: info});
+        this.setState({ markerInfo: info });
+    }
+
+    removeMarker(id) {
+        const updatedMarkers = this.state.markers.filter(m => m.id !== id);
+        this.setState( { markers: updatedMarkers });
     }
 
     render() {
         return (
             <div>
-                <Info markerInfo={this.state.markerInfo} />
+                <Info markerInfo={this.state.markerInfo} onDelete={this.removeMarker} />
                 <MapWithAMarker markers={this.state.markers} setMarkerInfo={this.setMarkerInfo} />
-                <div><AddMarkers/></div>
+                <button
+                    className='addMarkersBtn'
+                    onClick={this.addNewPlaces}
+                >
+                    Add Places
+                </button>
             </div>
         )
     }
