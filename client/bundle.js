@@ -9608,6 +9608,7 @@ var Delete = function (_React$Component) {
         _this.state = { id: '' };
         _this.onClick = _this.onClick.bind(_this);
         _this.delete = _this.delete.bind(_this);
+        _this.hideMarker = _this.hideMarker.bind(_this);
         return _this;
     }
 
@@ -9623,11 +9624,16 @@ var Delete = function (_React$Component) {
         key: 'onClick',
         value: function onClick(e) {
             this.delete(this.props.place.id);
+            this.hideMarker();
+        }
+    }, {
+        key: 'hideMarker',
+        value: function hideMarker() {
+            console.log(this.props);
         }
     }, {
         key: 'delete',
         value: function _delete(e) {
-            console.log(e);
             _axios2.default.post('/delete', { id: e }).then(function (response) {
                 console.log(response);
             });
@@ -50226,30 +50232,6 @@ var MapWithAMarker = compose(withProps({
     containerElement: _react2.default.createElement("div", { style: { height: "400px" } }),
     mapElement: _react2.default.createElement("div", { style: { height: "100%" } }),
     center: { lat: 25.03, lng: 121.6 }
-}), withStateHandlers(function () {
-    return {
-        isOpen: false,
-        showInfo: '0'
-    };
-}, {
-    onToggleOpen: function onToggleOpen(_ref) {
-        var isOpen = _ref.isOpen;
-        return function () {
-            return {
-                isOpen: !isOpen
-            };
-        };
-    },
-    showInfo: function showInfo(_ref2) {
-        var _showInfo = _ref2.showInfo,
-            isOpen = _ref2.isOpen;
-        return function (a) {
-            return {
-                isOpen: !isOpen,
-                showInfoIndex: a
-            };
-        };
-    }
 }), withScriptjs, withGoogleMap)(function (props) {
     return _react2.default.createElement(
         GoogleMap,
@@ -50275,10 +50257,10 @@ var MapWithAMarker = compose(withProps({
 var Info = function (_React$Component) {
     _inherits(Info, _React$Component);
 
-    function Info(props) {
+    function Info() {
         _classCallCheck(this, Info);
 
-        return _possibleConstructorReturn(this, (Info.__proto__ || Object.getPrototypeOf(Info)).call(this, props));
+        return _possibleConstructorReturn(this, (Info.__proto__ || Object.getPrototypeOf(Info)).apply(this, arguments));
     }
 
     _createClass(Info, [{
@@ -50470,7 +50452,7 @@ var AddMarkers = function (_React$Component) {
         value: function render() {
             return _react2.default.createElement(
                 'button',
-                { onClick: this.onClick },
+                { className: 'addMarkersBtn', onClick: this.onClick },
                 'Add Places'
             );
         }

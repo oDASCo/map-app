@@ -110,3 +110,10 @@ fieldset{
 .hideBtn a{
   color: #11264a;
 }
+.addMarkersBtn{
+  background-color: #11264a;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 20px 50px;
+}

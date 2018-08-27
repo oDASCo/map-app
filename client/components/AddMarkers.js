@@ -45,7 +45,7 @@ class AddMarkers extends React.Component {
 
     render() {
         return(
-<button onClick={this.onClick}>Add Places</button>
+<button className='addMarkersBtn' onClick={this.onClick}>Add Places</button>
         )
     }
 }

@@ -26,18 +26,6 @@ const MapWithAMarker = compose(
         mapElement: <div style={{ height: `100%` }} />,
         center: { lat: 25.03, lng: 121.6 },
     }),
-    withStateHandlers(() => ({
-        isOpen: false,
-        showInfo: '0'
-    }), {
-        onToggleOpen: ({ isOpen }) => () => ({
-            isOpen: !isOpen,
-        }),
-        showInfo: ({ showInfo, isOpen }) => (a) => ({
-            isOpen: !isOpen,
-            showInfoIndex: a
-        })
-    }),
     withScriptjs,
     withGoogleMap
 )(props =>
@@ -61,10 +49,6 @@ const MapWithAMarker = compose(
 );
 
 class Info extends React.Component{
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <div>
@@ -74,8 +58,7 @@ class Info extends React.Component{
                     <p>lat: {this.props.markerInfo.lat}  lng: {this.props.markerInfo.lng} </p>
                 </div>
                 <div className="infoBlockBtn">
-
-                    <Delete id={this.props.markerInfo.id} place={this.props.markerInfo} />
+                    <Delete id={this.props.markerInfo.id} place={this.props.markerInfo}  />
                 </div>
                 </div>
             </div>
