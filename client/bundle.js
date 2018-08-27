@@ -50232,6 +50232,30 @@ var MapWithAMarker = compose(withProps({
     containerElement: _react2.default.createElement("div", { style: { height: "400px" } }),
     mapElement: _react2.default.createElement("div", { style: { height: "100%" } }),
     center: { lat: 25.03, lng: 121.6 }
+}), withStateHandlers(function () {
+    return {
+        isOpen: false,
+        showInfo: '0'
+    };
+}, {
+    onToggleOpen: function onToggleOpen(_ref) {
+        var isOpen = _ref.isOpen;
+        return function () {
+            return {
+                isOpen: !isOpen
+            };
+        };
+    },
+    showInfo: function showInfo(_ref2) {
+        var _showInfo = _ref2.showInfo,
+            isOpen = _ref2.isOpen;
+        return function (a) {
+            return {
+                isOpen: !isOpen,
+                showInfoIndex: a
+            };
+        };
+    }
 }), withScriptjs, withGoogleMap)(function (props) {
     return _react2.default.createElement(
         GoogleMap,

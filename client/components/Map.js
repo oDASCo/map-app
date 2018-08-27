@@ -26,6 +26,18 @@ const MapWithAMarker = compose(
         mapElement: <div style={{ height: `100%` }} />,
         center: { lat: 25.03, lng: 121.6 },
     }),
+    withStateHandlers(() => ({
+        isOpen: false,
+        showInfo: '0'
+    }), {
+        onToggleOpen: ({ isOpen }) => () => ({
+            isOpen: !isOpen,
+        }),
+        showInfo: ({ showInfo, isOpen }) => (a) => ({
+            isOpen: !isOpen,
+            showInfoIndex: a
+        })
+    }),
     withScriptjs,
     withGoogleMap
 )(props =>
