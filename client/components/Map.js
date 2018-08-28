@@ -2,7 +2,6 @@ import Delete from './Delete';
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
-import AddMarkers from './AddMarkers';
 
 var customMarker = require('../../src/images/map_marker.png');
 var customMarkerDefault = require('../../src/images/map_marker_dark.png');
