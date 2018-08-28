@@ -85,10 +85,8 @@ class Info extends React.Component{
                 </div>
                 </div>
             </div>
-
         )
     }
-
 }
 
 class MyMap extends React.PureComponent {
