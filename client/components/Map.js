@@ -68,8 +68,6 @@ const MapWithAMarker = compose(
         >
 
         </Marker>
-
-
     </GoogleMap>
 );
 
