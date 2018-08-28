@@ -4,8 +4,8 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import AddMarkers from './AddMarkers';
 
-
-// import customMarker from '../../src/images/map_marker.png';
+var customMarker = require('../../src/images/map_marker.png');
+var customMarkerDefault = require('../../src/images/map_marker_dark.png');
 const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
 const fetch = require("isomorphic-fetch");
 const { compose, withProps, withHandlers, withStateHandlers } = require("recompose");
@@ -42,7 +42,7 @@ const MapWithAMarker = compose(
     withGoogleMap
 )(props =>
     <GoogleMap
-        defaultZoom={11}
+        defaultZoom={12}
         defaultCenter={{ lat: 53.9, lng: 27.56667 }}
     >
         {props.markers.map((marker) =>
@@ -50,12 +50,23 @@ const MapWithAMarker = compose(
                 key={marker.id}
                 position={{ lat: marker.lat, lng: marker.lng }}
                 onClick={()=>{ props.showInfo(marker.id); props.setMarkerInfo(marker);} }
-                onMouseEnter={()=>{ props.showInfo(marker.id); props.setMarkerInfo(marker);} }
+                onMouseDown={()=>{ props.showInfo(marker.id); props.setMarkerInfo(marker);} }
+                icon={{
+                    url: customMarker
+                }}
             >
             </Marker>
         )}
+        <Marker
+            key={33444}
+            position={{ lat: 53.9, lng: 27.56667 }}
+            icon={{
+                url: customMarkerDefault
+            }}
+            zIndex={10000}
+        >
 
-
+        </Marker>
     </GoogleMap>
 );
 
@@ -75,7 +86,6 @@ class Info extends React.Component{
             </div>
         )
     }
-
 }
 
 class MyMap extends React.PureComponent {
