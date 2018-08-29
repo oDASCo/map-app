@@ -1,6 +1,6 @@
 const config = require('./config');
 const fetch = require('node-fetch');
-var Places = require('../models/Places');
+const Places = require('../models/Places');
 
 module.exports = class PlacesService {
     constructor() {
@@ -20,7 +20,6 @@ module.exports = class PlacesService {
                 places.push(place);
             }
         );
-
         return places;
     }
 

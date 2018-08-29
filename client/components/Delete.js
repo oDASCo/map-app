@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+
 class Delete extends React.Component {
     constructor(){
         super();
@@ -31,11 +30,9 @@ class Delete extends React.Component {
 
     render(){
         return (
-            <Button className="hideBtn" onClick={this.onClick}>
-                <Link to={{pathname: '/', search: '' }} style={{ textDecoration: 'none' }}>
+            <button className="hideBtn" onClick={this.onClick}>
                     Hide this place
-                </Link>
-            </Button>
+            </button>
         )
     }
 }

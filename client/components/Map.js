@@ -1,11 +1,11 @@
-import Delete from './Delete';
+import Info from './Info';
 import React from "react";
 import ReactDOM from "react-dom";
 import axios from "axios";
 
-var customMarker = require('../../src/images/map_marker.png');
-var customMarkerDefault = require('../../src/images/map_marker_dark.png');
-const { InfoBox } = require("react-google-maps/lib/components/addons/InfoBox");
+const customMarker = require('../../src/images/map_marker.png');
+const customMarkerDefault = require('../../src/images/map_marker_dark.png');
+
 const fetch = require("isomorphic-fetch");
 const { compose, withProps, withHandlers, withStateHandlers } = require("recompose");
 const {
@@ -13,9 +13,7 @@ const {
     withGoogleMap,
     GoogleMap,
     Marker,
-    InfoWindow,
 } = require("react-google-maps");
-const { MarkerClusterer } = require("react-google-maps/lib/components/addons/MarkerClusterer");
 
 const MapWithAMarker = compose(
     withProps({
@@ -69,23 +67,6 @@ const MapWithAMarker = compose(
     </GoogleMap>
 );
 
-class Info extends React.Component{
-    render() {
-        return (
-            <div>
-                <div className="infoBlock">
-                <div className="infoBlockText">
-                    <p className="placeName">Place: {this.props.markerInfo.name}</p>
-                    <p>lat: {this.props.markerInfo.lat}  lng: {this.props.markerInfo.lng} </p>
-                </div>
-                <div className="infoBlockBtn">
-                    <Delete id={this.props.markerInfo.id} place={this.props.markerInfo} onDelete={this.props.onDelete}/>
-                </div>
-                </div>
-            </div>
-        )
-    }
-}
 
 class MyMap extends React.PureComponent {
 

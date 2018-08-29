@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var Places = require('../../models/Places');
-var PlacesService = require('../PlacesService');
-var service = new PlacesService();
+const express = require('express');
+const router = express.Router();
+const Places = require('../../models/Places');
+const PlacesService = require('../PlacesService');
+const service = new PlacesService();
 
 router.get('/', function(req, res){
     res.render('index')
@@ -15,7 +15,7 @@ router.get('/city', function(req, res) {
 
 router.route('/insert')
     .post(function(req, res) {
-        var places = new Places();
+        let places = new Places();
         places.id = req.body.id;
         places.name = req.body.name;
         places.lat = req.body.lat;
@@ -28,7 +28,7 @@ router.route('/insert')
     });
 
 router.post('/delete', function(req, res){
-    var id = req.body.id;
+    let id = req.body.id;
     Places.find({id: id}).deleteOne().then((err, data) => res.send(data));
 });
 
