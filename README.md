@@ -1,4 +1,4 @@
-<h2>Map App</h2>
+<h2>Map App on React</h2>
 
 <h3>Requirements</h3>
 <p>Node.js</p>
